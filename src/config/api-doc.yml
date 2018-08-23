@@ -1,0 +1,95 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Hello World App
+# during dev, should point to your local machine
+host: localhost:3030
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+# tip: remove http to make production-grade
+- http
+- https
+# format of bodies a client can send (Content-Type)
+consumes:
+- application/json
+# format of the responses to the client (Accepts)
+produces:
+- application/json
+- text/plain
+paths:
+  /add:
+    x-swagger-router-controller: add
+    post:
+      description: Get algebraic sum
+      operationId: add
+      parameters:
+      - in: body
+        name: body
+        description: Pass two numbers as a & b and returns sum.
+        schema:
+          type: object
+          required:
+          - a
+          - b
+          properties:
+            a:
+              type: number
+            b:
+              type: number
+      responses:
+        200:
+          description: Sum of two numbers
+          schema:
+            type: object
+            properties:
+              sum:
+                type: integer
+                description: Final sum value.
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /diff:
+    x-swagger-router-controller: diff
+    post:
+      description: Get algebraic difference
+      operationId: diff
+      parameters:
+      - in: body
+        name: body
+        description: Pass two numbers as a & b and returns difference.
+        schema:
+          type: object
+          required:
+          - a
+          - b
+          properties:
+            a:
+              type: number
+            b:
+              type: number
+      responses:
+        200:
+          description: Diff of two numbers
+          schema:
+            type: object
+            properties:
+              sum:
+                type: integer
+                description: Final diff value.
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  ErrorResponse:
+    required:
+    - message
+    properties:
+      message:
+        type: string
