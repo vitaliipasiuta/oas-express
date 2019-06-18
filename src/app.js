@@ -13,6 +13,7 @@ const routes = path.resolve(__dirname, 'routes');
 
 const swaggerDocument = yaml.safeLoad(apiDoc);
 
+console.log('test CI');
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
